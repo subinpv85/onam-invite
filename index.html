@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAS Onam Celebration 2026</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Georgia', serif; }
+        body { background: #120101; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; padding: 20px; }
+        
+        /* Persistent Top-Left Logo Styling */
+        .persistent-logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            width: 80px;
+            height: auto;
+            z-index: 10;
+            filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.5));
+            transition: all 0.3s ease;
+        }
+        
+        @media (max-width: 480px) {
+            .persistent-logo { width: 60px; top: 15px; left: 15px; }
+        }
+
+        /* Container Setup */
+        .invite-container { position: relative; width: 100%; max-width: 450px; height: 650px; perspective: 1000px; }
+        
+        /* Envelope Styles */
+        .envelope { position: absolute; width: 100%; height: 100%; background: #4a0404; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px; text-align: center; color: #f4ebd0; border: 4px solid #d4af37; transition: transform 0.8s ease, opacity 0.6s ease; z-index: 2; transform-origin: bottom center; cursor: pointer; }
+        .envelope.open { transform: rotateX(-110deg); opacity: 0; pointer-events: none; }
+        .envelope h1 { font-size: 2.2rem; margin-bottom: 10px; color: #d4af37; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+        .envelope h2 { font-size: 1.2rem; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; }
+        
+        /* Traditional Pookalam Mandala Design */
+        .pookalam-seal { width: 120px; height: 120px; background: radial-gradient(circle, #ffcc00 20%, #ff6600 40%, #cc0000 60%, #4a0404 80%); border-radius: 50%; border: 4px dashed #d4af37; box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); display: flex; justify-content: center; align-items: center; color: #fff; font-weight: bold; font-size: 14px; position: relative; animation: spin 20s linear infinite; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        .seal-text { position: absolute; animation: unspin 20s linear infinite; color: #fff; font-size: 0.9rem; text-shadow: 1px 1px 2px #000; letter-spacing: 1px; font-weight: bold; }
+        @keyframes unspin { 100% { transform: rotate(-360deg); } }
+        .click-hint { margin-top: 40px; font-size: 0.9rem; font-style: italic; color: #d4af37; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+        /* Invitation Card Styles */
+        .card { position: absolute; width: 100%; height: 100%; background: #fdfbf7; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 8px double #d4af37; padding: 25px; display: flex; flex-direction: column; align-items: center; text-align: center; color: #333; opacity: 0; transform: scale(0.9) translateY(50px); transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1; pointer-events: none; }
+        .card.reveal { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
+        
+        /* Card Content Styling */
+        .card-header { font-size: 1.1rem; color: #800000; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 10px; }
+        .card-title { font-size: 2.4rem; color: #b8860b; margin: 15px 0 5px 0; font-family: 'Times New Roman', serif; }
+        .card-subtitle { font-size: 1.1rem; color: #555; font-style: italic; margin-bottom: 25px; line-height: 1.4; }
+        .divider { width: 60px; height: 3px; background-color: #d4af37; margin: 15px auto; position: relative; }
+        .divider::before, .divider::after { content: '♦'; position: absolute; color: #d4af37; font-size: 10px; top: -5px; }
+        .divider::before { left: -15px; } .divider::after { right: -15px; }
+        
+        .event-msg { font-size: 1rem; line-height: 1.5; color: #444; margin-bottom: 25px; }
+        .scratch-instruction { font-size: 0.9rem; color: #800000; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+
+        /* Scratch-Off Canvas Setup */
+        .scratch-area { position: relative; width: 100%; flex-grow: 1; max-height: 200px; background: #fff8eb; border: 2px dashed #b8860b; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 15px; box-shadow: inset 0 0 10px rgba(0,0,0,0.05); }
+        .secret-details { text-align: center; width: 100%; }
+        .secret-date { font-size: 1.4rem; color: #800000; font-weight: bold; margin-bottom: 8px; }
+        .secret-time { font-size: 1.1rem; color: #333; font-weight: bold; margin-bottom: 12px; }
+        .secret-address { font-size: 0.95rem; line-height: 1.4; color: #555; font-weight: 500; }
+        
+        canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://w3.org" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="gold" stroke="white" stroke-width="2"/></svg>') 12 12, pointer; touch-action: none; border-radius: 6px; }
+    </style>
+</head>
+<body>
+
+<!-- Always Visible MAS Logo -->
+<img src="logo.png" alt="MAS Logo" class="persistent-logo">
+
+<!-- HTML5 Audio element setup -->
+<audio id="bgMusic" src="onam.mp3" loop preload="auto"></audio>
+
+<div class="invite-container">
+    <!-- Envelope Layer -->
+    <div class="envelope" id="envelope" onclick="openEnvelope()">
+        <h2>Malayalee Association Sunderland</h2>
+        <h1>MAS ONAM 2026</h1>
+        <p style="margin-bottom: 40px; font-style: italic;">Cordially invites you and your family to join our grand festive celebrations.</p>
+        <div class="pookalam-seal">
+            <span class="seal-text">OPEN</span>
+        </div>
+        <p class="click-hint">Tap Seal to Open & Play Music</p>
+    </div>
+
+    <!-- Main Invitation Card Layer -->
+    <div class="card" id="inviteCard">
+        <div class="card-header">Malayalee Association Sunderland (MAS)</div>
+        <h1 class="card-title">Onam Celebration</h1>
+        <div class="divider"></div>
+        <p class="card-subtitle">Join us for a day filled with joy, traditional cultural programs, and the grand festive Onasadya!</p>
+        <p class="event-msg">Let's celebrate the spirit of togetherness, prosperity, and beautiful memories in our community. We look forward to welcoming you all!</p>
+        
+        <p class="scratch-instruction">👇 Scratch below to reveal schedule & venue 👇</p>
+        
+        <!-- Scratch Reveal Block -->
+        <div class="scratch-area">
+            <div class="secret-details">
+                <div class="secret-date">🗓️ Sunday, 6th September</div>
+                <div class="secret-time">⏰ Time: 10:00 AM</div>
+                <div class="secret-address">📍 Kepier Academy<br>Dairy Lane, Houghton le Spring<br>DH4 5BH</div>
+            </div>
+            <canvas id="scratchCanvas"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openEnvelope() {
+        // Safe Audio Player Wrapper: Attempt playback, but don't freeze the screen if it fails
+        const music = document.getElementById('bgMusic');
+        if (music) {
+            music.play().catch(error => {
+                console.warn("Audio playback was elegantly bypassed by browser policy rules:", error);
+            });
+        }
+
+        // Force reveal animation routines immediately 
+        document.getElementById('envelope').classList.add('open');
+        const card = document.getElementById('inviteCard');
+        card.classList.add('reveal');
+        setTimeout(initScratchCard, 300);
+    }
+
+    // Handle scratch card drawing logic
+    function initScratchCard() {
+        const canvas = document.getElementById('scratchCanvas');
+        const ctx = canvas.getContext('2d');
+        const container = canvas.parentElement;
+        
+        const width = container.offsetWidth;
+        const height = container.offsetHeight;
+        canvas.width = width;
+        canvas.height = height;
+
+        ctx.fillStyle = '#d4af37';
+        ctx.fillRect(0, 0, width, height);
+        
+        ctx.fillStyle = '#b8860b';
+        for(let i = 0; i < width; i += 20) {
+            for(let j = 0; j < height; j += 20) {
+                if((i+j)%40===0) ctx.fillRect(i, j, 4, 4);
+            }
+        }
+
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 16px Georgia';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.shadowColor = 'rgba(0,0,0,0.4)';
+        ctx.shadowBlur = 4;
+        ctx.fillText('SCRATCH WITH FINGER/MOUSE', width / 2, height / 2);
+        ctx.shadowBlur = 0;
+
+        let isDrawing = false;
+
+        function getCoords(e) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches.clientX : e.clientX;
+            const clientY = e.touches ? e.touches.clientY : e.clientY;
+            return { x: clientX - rect.left, y: clientY - rect.top };
+        }
+
+        function scratch(e) {
+            if (!isDrawing) return;
+            e.preventDefault();
+            const coords = getCoords(e);
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.beginPath();
+            ctx.arc(coords.x, coords.y, 25, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e); });
+        canvas.addEventListener('mousemove', scratch);
+        window.addEventListener('mouseup', () => isDrawing = false);
+
