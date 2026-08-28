@@ -11,19 +11,19 @@
         @media (max-width: 480px) { .persistent-logo { width: 60px; top: 15px; left: 15px; } }
         .music-toggle { position: fixed; bottom: 20px; right: 20px; background: #d4af37; color: #4a0404; border: 2px solid #4a0404; border-radius: 50%; width: 50px; height: 50px; display: none; justify-content: center; align-items: center; font-size: 1.5rem; cursor: pointer; z-index: 11; transition: all 0.3s ease; }
         .music-toggle:hover { transform: scale(1.1); box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4); }
-        .invite-container { position: relative; width: 100%; max-width: 450px; height: 650px; perspective: 1000px; }
-        .envelope { position: absolute; width: 100%; height: 100%; background: #4a0404; border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 30px; text-align: center; color: #d4af37; transition: all 0.6s ease; transform-origin: center; z-index: 2; cursor: pointer; }
+        .invite-container { position: relative; width: 100%; max-width: 450px; height: 750px; perspective: 1000px; }
+        .envelope { position: absolute; width: 100%; height: 100%; background: linear-gradient(135deg, #4a0404 0%, #6b0505 50%, #4a0404 100%); border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 30px 25px; text-align: center; color: #d4af37; transition: all 0.6s ease; transform-origin: center; z-index: 2; cursor: pointer; overflow-y: auto; }
         .envelope:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
         .envelope.open { transform: rotateX(-110deg); opacity: 0; pointer-events: none; }
-        .envelope-logo { width: 100px; height: auto; margin-bottom: 15px; filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.5)); }
-        .envelope h1 { font-size: 2.2rem; margin-bottom: 10px; color: #d4af37; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
-        .envelope h2 { font-size: 1.2rem; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; }
-        .pookalam-seal { width: 120px; height: 120px; background: radial-gradient(circle, #ffcc00 20%, #ff6600 40%, #cc0000 60%, #4a0404 80%); border-radius: 50%; border: 4px dashed #d4af37; display: flex; justify-content: center; align-items: center; position: relative; animation: spin 8s linear infinite; cursor: pointer; transition: transform 0.2s ease; }
-        .pookalam-seal:hover { transform: scale(1.05); }
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        .seal-text { position: absolute; animation: unspin 20s linear infinite; color: #fff; font-size: 0.9rem; text-shadow: 1px 1px 2px #000; letter-spacing: 1px; font-weight: bold; }
-        @keyframes unspin { 100% { transform: rotate(-360deg); } }
-        .click-hint { margin-top: 40px; font-size: 0.85rem; font-style: italic; color: #d4af37; animation: pulse 1.5s infinite; line-height: 1.4; }
+        .envelope-logo { width: 80px; height: auto; margin-top: 10px; margin-bottom: 10px; filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.5)); }
+        .envelope h2 { font-size: 0.95rem; font-weight: 300; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; color: #d4af37; }
+        .envelope h1 { font-size: 2.8rem; margin-bottom: 15px; color: #d4af37; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); font-weight: bold; letter-spacing: 2px; }
+        .invitation-text { font-size: 1rem; color: #d4af37; margin-bottom: 25px; font-style: italic; line-height: 1.5; }
+        .kathakali-container { width: 160px; height: 160px; margin: 25px auto; display: flex; justify-content: center; align-items: center; position: relative; }
+        .kathakali-circle { width: 160px; height: 160px; border: 6px solid #d4af37; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 30px rgba(212, 175, 55, 0.6), inset 0 0 20px rgba(212, 175, 55, 0.3); overflow: hidden; }
+        .kathakali-circle img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+        .tap-button { background: #d4af37; color: #4a0404; padding: 10px 30px; border-radius: 25px; font-size: 0.9rem; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; margin: 20px 0; box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4); }
+        .click-hint { margin-top: 15px; font-size: 0.85rem; font-style: italic; color: #d4af37; animation: pulse 1.5s infinite; line-height: 1.4; }
         @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
         .card { position: absolute; width: 100%; height: 100%; background: #fdfbf7; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 8px double #d4af37; padding: 25px; display: flex; flex-direction: column; opacity: 0; transform: scale(0.8) translateY(50px); pointer-events: none; transition: all 0.6s ease 0.2s; z-index: 1; }
         .card.reveal { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
@@ -56,11 +56,16 @@
     <div class="envelope" id="envelope" onclick="openEnvelope()">
         <img src="logo.png" alt="MAS Logo" class="envelope-logo">
         <h2>Malayalee Association Sunderland</h2>
-        <h1>MAS AAVESHAM 2026</h1>
-        <p style="margin-bottom: 40px; font-style: italic;">Cordially invites you and your family to join our grand festive celebrations.</p>
-        <div class="pookalam-seal" onclick="openEnvelope(event)">
-            <span class="seal-text">OPEN</span>
+        <h1>MAS AAVESHAM<br>2026</h1>
+        <p class="invitation-text">Cordially invites you and your family to join our grand festive celebrations.</p>
+        
+        <div class="kathakali-container" onclick="openEnvelope(event)">
+            <div class="kathakali-circle">
+                <img src="Kathakali.jpeg" alt="Kathakali Character">
+            </div>
         </div>
+        
+        <div class="tap-button" onclick="openEnvelope(event)">TAP TO VIEW HIGHLIGHTS</div>
         <p class="click-hint">Tap Open to View Major Highlights & Key Performances of the Event.</p>
     </div>
 
