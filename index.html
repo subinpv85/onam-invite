@@ -23,7 +23,7 @@
         @keyframes spin { 100% { transform: rotate(360deg); } }
         .seal-text { position: absolute; animation: unspin 20s linear infinite; color: #fff; font-size: 0.9rem; text-shadow: 1px 1px 2px #000; letter-spacing: 1px; font-weight: bold; }
         @keyframes unspin { 100% { transform: rotate(-360deg); } }
-        .click-hint { margin-top: 40px; font-size: 0.9rem; font-style: italic; color: #d4af37; animation: pulse 1.5s infinite; }
+        .click-hint { margin-top: 40px; font-size: 0.85rem; font-style: italic; color: #d4af37; animation: pulse 1.5s infinite; line-height: 1.4; }
         @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
         .card { position: absolute; width: 100%; height: 100%; background: #fdfbf7; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 8px double #d4af37; padding: 25px; display: flex; flex-direction: column; opacity: 0; transform: scale(0.8) translateY(50px); pointer-events: none; transition: all 0.6s ease 0.2s; z-index: 1; }
         .card.reveal { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
@@ -61,7 +61,7 @@
         <div class="pookalam-seal" onclick="openEnvelope(event)">
             <span class="seal-text">OPEN</span>
         </div>
-        <p class="click-hint">Tap Seal to Open & Play Music</p>
+        <p class="click-hint">Tap Open to View Major Highlights & Key Performances of the Event.</p>
     </div>
 
     <div class="card" id="inviteCard">
