@@ -6,100 +6,378 @@
     <title>MAS Onam Celebration 2026</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Georgia', serif; }
-        body { background: #120101; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; padding: 20px; }
-        .persistent-logo { position: fixed; top: 20px; left: 20px; width: 80px; height: auto; z-index: 10; filter: drop-shadow(0px 4px 8px rgba(0,0,0,0.5)); display: none; }
-        @media (max-width: 480px) { .persistent-logo { width: 60px; top: 15px; left: 15px; } }
-        .music-toggle { position: fixed; bottom: 20px; right: 20px; background: #d4af37; color: #4a0404; border: 2px solid #4a0404; border-radius: 50%; width: 50px; height: 50px; display: none; justify-content: center; align-items: center; font-size: 1.5rem; cursor: pointer; z-index: 11; transition: all 0.3s ease; }
+        body { 
+            background: url('bgnk.jpeg') no-repeat center center fixed; 
+            background-size: cover; 
+            display: flex; 
+            justify-content: center; 
+            align-items: flex-start; 
+            min-height: 100vh; 
+            overflow: hidden; 
+            padding: 0; 
+        }
+        .music-toggle { 
+            position: fixed; 
+            bottom: 20px; 
+            right: 20px; 
+            background: #d4af37; 
+            color: #4a0404; 
+            border: 2px solid #4a0404; 
+            border-radius: 50%; 
+            width: 50px; 
+            height: 50px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            font-size: 1.5rem; 
+            cursor: pointer; 
+            z-index: 11; 
+            transition: all 0.3s ease; 
+        }
         .music-toggle:hover { transform: scale(1.1); box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4); }
-        .invite-container { position: relative; width: 100%; max-width: 450px; height: 850px; perspective: 1000px; }
-        .envelope { position: absolute; width: 100%; height: 100%; background: linear-gradient(135deg, #4a0404 0%, #6b0505 50%, #4a0404 100%); border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); display: flex; flex-direction: column; justify-content: flex-start; align-items: center; padding: 20px 25px; text-align: center; color: #d4af37; transition: all 0.6s ease; transform-origin: center; z-index: 2; cursor: pointer; overflow-y: auto; position: relative; }
-        .envelope::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-image: 
-            radial-gradient(circle at 10% 20%, rgba(212, 175, 55, 0.05) 1px, transparent 1px),
-            radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.05) 1px, transparent 1px),
-            radial-gradient(circle at 40% 40%, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
-            background-size: 100px 100px;
-            pointer-events: none;
-            border-radius: 12px;
+        .invite-container { position: relative; width: 100%; max-width: 450px; height: 100vh; perspective: 1000px; margin-top: 0; }
+        .envelope { 
+            position: absolute; 
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            background: url('bgnk.jpeg') no-repeat center center; 
+            background-size: cover; 
+            border-radius: 0 0 12px 12px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6); 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: flex-end; 
+            align-items: center; 
+            padding: 20px 25px 40px 25px; 
+            text-align: center; 
+            transition: all 0.6s ease; 
+            transform-origin: top center; 
+            z-index: 2; 
+            cursor: pointer; 
+            overflow: hidden; 
         }
         .envelope:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.8); }
         .envelope.open { transform: rotateX(-110deg); opacity: 0; pointer-events: none; }
-        .envelope-content { position: relative; z-index: 3; width: 100%; display: flex; flex-direction: column; align-items: center; }
-        .logo-circle { width: 100px; height: 100px; border: 4px solid #d4af37; border-radius: 50%; display: flex; justify-content: center; align-items: center; margin-top: 10px; margin-bottom: 15px; box-shadow: 0 0 25px rgba(212, 175, 55, 0.5); background: rgba(212, 175, 55, 0.1); }
-        .logo-circle img { width: 85%; height: 85%; object-fit: contain; }
-        .envelope h2 { font-size: 0.85rem; font-weight: 300; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; color: #d4af37; }
-        .envelope h1 { font-size: 2.4rem; margin-bottom: 10px; color: #d4af37; text-shadow: 2px 2px 4px rgba(0,0,0,0.7); font-weight: bold; letter-spacing: 2px; }
-        .invitation-text { font-size: 0.95rem; color: #d4af37; margin-bottom: 20px; font-style: italic; line-height: 1.6; }
-        .kathakali-container { width: 200px; height: 200px; margin: 15px auto; display: flex; justify-content: center; align-items: center; position: relative; cursor: pointer; }
-        .kathakali-circle { width: 200px; height: 200px; border: 6px solid #d4af37; border-radius: 50%; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 50px rgba(212, 175, 55, 0.8), 0 0 80px rgba(212, 175, 55, 0.4), inset 0 0 30px rgba(212, 175, 55, 0.2); overflow: hidden; transition: all 0.3s ease; }
-        .kathakali-circle:hover { transform: scale(1.05); box-shadow: 0 0 60px rgba(212, 175, 55, 1), 0 0 100px rgba(212, 175, 55, 0.6), inset 0 0 30px rgba(212, 175, 55, 0.3); }
-        .kathakali-circle img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
-        .tap-button { background: linear-gradient(135deg, #d4af37 0%, #e8c547 100%); color: #4a0404; width: 200px; height: 50px; border-radius: 25px; font-size: 0.85rem; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; margin: 20px auto; box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5); display: flex; justify-content: center; align-items: center; text-align: center; padding: 12px 20px; cursor: pointer; transition: all 0.3s ease; border: none; }
-        .tap-button:hover { transform: scale(1.08); box-shadow: 0 8px 25px rgba(212, 175, 55, 0.7); }
-        .card { position: absolute; width: 100%; height: 100%; background: #fdfbf7; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 8px double #d4af37; padding: 25px; display: flex; flex-direction: column; opacity: 0; transform: scale(0.8) translateY(50px); pointer-events: none; transition: all 0.6s ease 0.2s; z-index: 1; }
+        .kadakali-overlay {
+            position: absolute;
+            bottom: 33.3%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30%;
+            height: auto;
+            pointer-events: none;
+            filter: drop-shadow(0px 4px 10px rgba(0, 0, 0, 0.5));
+        }
+
+        /* Side Links to the Right of Kathakali Image */
+        .side-links-container {
+            position: absolute;
+            bottom: 33.3%;
+            right: 4%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 4;
+        }
+
+        .side-btn {
+            background: rgba(74, 4, 4, 0.85);
+            color: #d4af37;
+            border: 2px solid #d4af37;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            text-align: center;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            animation: pulse-side 2s infinite ease-in-out;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        .side-btn:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .side-btn:hover {
+            transform: scale(1.08);
+            background: #d4af37;
+            color: #4a0404;
+            box-shadow: 0 6px 18px rgba(212, 175, 55, 0.8);
+        }
+
+        @keyframes pulse-side {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); box-shadow: 0 0 12px rgba(212, 175, 55, 0.6); }
+            100% { transform: scale(1); }
+        }
+
+        /* Countdown Timer Styling */
+        .countdown-container {
+            position: absolute;
+            bottom: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 85%;
+            background: rgba(74, 4, 4, 0.85);
+            border: 2px solid #d4af37;
+            border-radius: 12px;
+            padding: 12px 10px;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            color: #d4af37;
+            pointer-events: none;
+        }
+
+        .countdown-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            color: #ffffff;
+            font-weight: bold;
+        }
+
+        .timer-display {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        .timer-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .timer-value {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .timer-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            color: #f0e68c;
+        }
+
+        /* Page 2 Styling */
+        .card { 
+            position: absolute; 
+            top: 0;
+            left: 0;
+            width: 100%; 
+            height: 100%; 
+            background: url('2.jpeg') no-repeat center top; 
+            background-size: cover; 
+            border-radius: 0 0 12px 12px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+            border: none; 
+            opacity: 0; 
+            transform: scale(0.8) translateY(50px); 
+            pointer-events: none; 
+            transition: all 0.6s ease 0.2s; 
+            z-index: 1; 
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center; /* Centers the 50% width button */
+            padding: 25px;
+        }
         .card.reveal { opacity: 1; transform: scale(1) translateY(0); pointer-events: auto; }
-        .card-header-section { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; }
-        .card-logo { width: 70px; height: auto; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.2)); }
-        .card-header { font-size: 1.1rem; color: #800000; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; flex: 1; }
-        .card-title { font-size: 2.4rem; color: #b8860b; margin: 15px 0 5px 0; font-family: 'Times New Roman', serif; }
-        .card-subtitle { font-size: 1.1rem; color: #555; font-style: italic; margin-bottom: 25px; line-height: 1.4; }
-        .divider { width: 60px; height: 3px; background-color: #d4af37; margin: 15px auto; position: relative; }
-        .divider::before, .divider::after { content: '♦'; position: absolute; color: #d4af37; font-size: 10px; top: -5px; }
-        .divider::before { left: -15px; } .divider::after { right: -15px; }
-        .event-msg { font-size: 1rem; line-height: 1.5; color: #444; margin-bottom: 25px; }
-        .scratch-instruction { font-size: 0.9rem; color: #800000; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
-        .scratch-area { position: relative; width: 100%; flex-grow: 1; max-height: 200px; background: #fff8eb; border: 2px dashed #b8860b; border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .secret-details { text-align: center; width: 100%; opacity: 0; transition: opacity 0.5s ease; }
-        .secret-details.ready { opacity: 1; }
-        .secret-date { font-size: 1.4rem; color: #800000; font-weight: bold; margin-bottom: 8px; }
-        .secret-time { font-size: 1.1rem; color: #333; font-weight: bold; margin-bottom: 12px; }
-        .secret-address { font-size: 0.95rem; line-height: 1.4; color: #555; font-weight: 500; }
-        canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; cursor: pointer; touch-action: none; border-radius: 6px; z-index: 3; }
+
+        /* Page 2 Back Button Styling (50% Width + Blinking Animation) */
+        .page2-back-btn {
+            width: 50%;
+            background: rgba(74, 4, 4, 0.85);
+            color: #d4af37;
+            border: 2px solid #d4af37;
+            padding: 10px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(4px);
+            animation: blink-button 1.5s infinite ease-in-out;
+        }
+
+        .page2-back-btn:hover {
+            background: #d4af37;
+            color: #4a0404;
+            transform: scale(1.05);
+        }
+
+        @keyframes blink-button {
+            0% { opacity: 1; box-shadow: 0 0 5px rgba(212, 175, 55, 0.4); }
+            50% { opacity: 0.3; box-shadow: 0 0 20px rgba(212, 175, 55, 0.9); }
+            100% { opacity: 1; box-shadow: 0 0 5px rgba(212, 175, 55, 0.4); }
+        }
+
+        /* Highlights Page Overlay */
+        .highlights-page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(74, 4, 4, 0.95);
+            background-image: linear-gradient(135deg, rgba(74, 4, 4, 0.95) 0%, rgba(20, 0, 0, 0.98) 100%);
+            border: 4px solid #d4af37;
+            border-radius: 0 0 12px 12px;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            padding: 30px 20px;
+            color: #fff;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(100%);
+            transition: all 0.5s ease-in-out;
+            overflow-y: auto;
+        }
+
+        .highlights-page.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .highlights-title {
+            color: #d4af37;
+            font-size: 1.6rem;
+            text-align: center;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            border-bottom: 2px dashed #d4af37;
+            padding-bottom: 10px;
+        }
+
+        .highlight-item {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid #d4af37;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 12px;
+        }
+
+        .highlight-item h3 {
+            color: #ffd700;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .highlight-item p {
+            font-size: 0.85rem;
+            color: #eee;
+            line-height: 1.3;
+        }
+
+        .back-btn {
+            margin-top: auto;
+            background: #d4af37;
+            color: #4a0404;
+            border: none;
+            padding: 12px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: #fff;
+            color: #4a0404;
+        }
     </style>
 </head>
 <body>
 
-<img src="logo.png" alt="MAS Logo" class="persistent-logo">
-<audio id="bgMusic" src="onam.MP3" loop preload="auto"></audio>
-<button class="music-toggle" id="musicBtn" onclick="toggleMusic()">🔊</button>
+<audio id="bgMusic" src="onam.MP3" loop autoplay muted preload="auto"></audio>
+<button class="music-toggle" id="musicBtn" onclick="toggleMusic()">🔇</button>
 
 <div class="invite-container">
     <div class="envelope" id="envelope" onclick="openEnvelope()">
-        <div class="envelope-content">
-            <div class="logo-circle">
-                <img src="logo.png" alt="MAS Logo">
-            </div>
-            <h2>Malayalee Association Sunderland</h2>
-            <h1>MAS AAVESHAM<br>2026</h1>
-            <p class="invitation-text">Cordially invites you and your family to join our grand Onam celebration.</p>
-            
-            <div class="kathakali-container" onclick="openEnvelope(event)">
-                <div class="kathakali-circle">
-                    <img src="Kathakali.jpeg" alt="Kathakali Character">
+        <img src="kadakali.png" alt="Kathakali" class="kadakali-overlay">
+
+        <div class="side-links-container" onclick="event.stopPropagation()">
+            <button class="side-btn" onclick="openHighlights()">
+                ✨ Highlights
+            </button>
+            <a href="https://maps.google.com/?q=Kepier+Academy+Dairy+Lane+Houghton+le+Spring+DH4+5BH" target="_blank" class="side-btn">
+                📍 Directions
+            </a>
+        </div>
+        
+        <div class="countdown-container">
+            <div class="countdown-title">Event Starts In</div>
+            <div class="timer-display">
+                <div class="timer-box">
+                    <span class="timer-value" id="days">00</span>
+                    <span class="timer-label">Days</span>
+                </div>
+                <span>:</span>
+                <div class="timer-box">
+                    <span class="timer-value" id="hours">00</span>
+                    <span class="timer-label">Hours</span>
+                </div>
+                <span>:</span>
+                <div class="timer-box">
+                    <span class="timer-value" id="minutes">00</span>
+                    <span class="timer-label">Mins</span>
+                </div>
+                <span>:</span>
+                <div class="timer-box">
+                    <span class="timer-value" id="seconds">00</span>
+                    <span class="timer-label">Secs</span>
                 </div>
             </div>
-            
-            <button class="tap-button" onclick="openEnvelope(event)">TAP TO VIEW HIGHLIGHTS</button>
         </div>
     </div>
 
+    <div class="highlights-page" id="highlightsPage">
+        <h2 class="highlights-title">✨ Event Highlights</h2>
+        
+        <div class="highlight-item">
+            <h3>🌺 Grand Onasadya</h3>
+            <p>Traditional feast served on banana leaves featuring over 20 authentic Kerala delicacies.</p>
+        </div>
+        
+        <div class="highlight-item">
+            <h3>🥁 Chenda Melam & Thiruvathira</h3>
+            <p>Traditional percussion rhythms followed by traditional dance performances.</p>
+        </div>
+        
+        <div class="highlight-item">
+            <h3>👑 Maveli Entrance</h3>
+            <p>Grand welcome ceremony for King Mahabali with cultural processions.</p>
+        </div>
+
+        <div class="highlight-item">
+            <h3>🎭 Cultural Programs & Drama</h3>
+            <p>Stage performances, comedy skits, and music shows by community members.</p>
+        </div>
+
+        <button class="back-btn" onclick="closeHighlights()">⬅️ Back to Invitation</button>
+    </div>
+
     <div class="card" id="inviteCard">
-        <div class="card-header-section">
-            <div class="card-header">Malayalee Association Sunderland (MAS)</div>
-            <img src="logo.png" alt="MAS Logo" class="card-logo">
-        </div>
-        <h1 class="card-title">Onam Celebration</h1>
-        <div class="divider"></div>
-        <p class="card-subtitle">Join us for a day filled with joy, traditional cultural programs, and the grand festive Onasadya!</p>
-        <p class="event-msg">Let's celebrate the spirit of togetherness, prosperity, and beautiful memories in our community. We look forward to welcoming you all!</p>
-        <p class="scratch-instruction">👇 Scratch below to reveal schedule & venue 👇</p>
-        <div class="scratch-area">
-            <div class="secret-details" id="secretDetails">
-                <div class="secret-date">🗓️ Sunday, 6th September</div>
-                <div class="secret-time">⏰ Time: 10:00 AM</div>
-                <div class="secret-address">📍 Kepier Academy<br>Dairy Lane, Houghton le Spring<br>DH4 5BH</div>
-            </div>
-            <canvas id="scratchCanvas"></canvas>
-        </div>
+        <button class="page2-back-btn" onclick="closeEnvelope()">⬅️ Back to Cover</button>
     </div>
 </div>
 
@@ -107,42 +385,59 @@
     const music = document.getElementById('bgMusic');
     const musicBtn = document.getElementById('musicBtn');
 
+    window.addEventListener('DOMContentLoaded', () => {
+        if (music) {
+            music.muted = false;
+            const playPromise = music.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    musicBtn.innerText = "🔊";
+                }).catch(() => {
+                    music.muted = true;
+                    music.play();
+                    musicBtn.innerText = "🔇";
+                });
+            }
+        }
+    });
+
+    function enableAudio() {
+        if (music) {
+            music.muted = false;
+            music.play();
+            musicBtn.innerText = "🔊";
+        }
+        document.removeEventListener('click', enableAudio);
+        document.removeEventListener('touchstart', enableAudio);
+    }
+    document.addEventListener('click', enableAudio);
+    document.addEventListener('touchstart', enableAudio);
+
     function openEnvelope(event) {
-        // Prevent event bubbling if called from seal click
         if (event && event.stopPropagation) {
             event.stopPropagation();
         }
-        
-        // Play audio with improved error handling
-        if (music) {
-            const playPromise = music.play();
-            if (playPromise !== undefined) {
-                playPromise
-                    .then(() => { 
-                        musicBtn.innerText = "🔊";
-                        musicBtn.style.display = "flex";
-                    })
-                    .catch(error => {
-                        console.warn("Autoplay audio blocked by device policy:", error);
-                        musicBtn.innerText = "🔇"; 
-                        musicBtn.style.display = "flex";
-                    });
-            } else {
-                // Fallback for older browsers
-                music.play();
-                musicBtn.style.display = "flex";
-            }
-        }
-        
-        // Open envelope animation
         document.getElementById('envelope').classList.add('open');
         document.getElementById('inviteCard').classList.add('reveal');
-        setTimeout(initScratchCard, 300);
+    }
+
+    function closeEnvelope() {
+        document.getElementById('inviteCard').classList.remove('reveal');
+        document.getElementById('envelope').classList.remove('open');
+    }
+
+    function openHighlights() {
+        document.getElementById('highlightsPage').classList.add('active');
+    }
+
+    function closeHighlights() {
+        document.getElementById('highlightsPage').classList.remove('active');
     }
 
     function toggleMusic() {
         if (!music) return;
-        if (music.paused) { 
+        if (music.paused || music.muted) { 
+            music.muted = false;
             music.play(); 
             musicBtn.innerText = "🔊"; 
         } else { 
@@ -151,45 +446,29 @@
         }
     }
 
-    function initScratchCard() {
-        const canvas = document.getElementById('scratchCanvas');
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d');
-        const container = canvas.parentElement;
-        const width = container.offsetWidth, height = container.offsetHeight;
-        canvas.width = width; canvas.height = height;
+    const eventDate = new Date("September 6, 2026 10:00:00").getTime();
 
-        ctx.fillStyle = '#d4af37'; ctx.fillRect(0, 0, width, height);
-        ctx.fillStyle = '#b8860b';
-        for(let i = 0; i < width; i += 20) {
-            for(let j = 0; j < height; j += 20) { if((i+j)%40===0) ctx.fillRect(i, j, 4, 4); }
-        }
-        ctx.fillStyle = '#ffffff'; ctx.font = 'bold 14px Georgia'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ctx.fillText('SCRATCH WITH FINGER/MOUSE', width / 2, height / 2);
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const difference = eventDate - now;
 
-        document.getElementById('secretDetails').classList.add('ready');
-        let isDrawing = false;
+        if (difference > 0) {
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-        function getCoords(e) {
-            const rect = canvas.getBoundingClientRect();
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-            return { x: clientX - rect.left, y: clientY - rect.top };
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+        } else {
+            document.querySelector(".countdown-container").innerHTML = "<div class='countdown-title'>🎉 Event Has Started! 🎉</div>";
         }
-        function scratch(e) {
-            if (!isDrawing) return;
-            e.preventDefault();
-            const coords = getCoords(e);
-            ctx.globalCompositeOperation = 'destination-out';
-            ctx.beginPath(); ctx.arc(coords.x, coords.y, 25, 0, Math.PI * 2); ctx.fill();
-        }
-        canvas.addEventListener('mousedown', (e) => { isDrawing = true; scratch(e); });
-        canvas.addEventListener('mousemove', scratch);
-        window.addEventListener('mouseup', () => isDrawing = false);
-        canvas.addEventListener('touchstart', (e) => { isDrawing = true; scratch(e); });
-        canvas.addEventListener('touchmove', scratch);
-        window.addEventListener('touchend', () => isDrawing = false);
     }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
 </script>
 </body>
 </html>
